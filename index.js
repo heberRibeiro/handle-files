@@ -14,26 +14,26 @@ function cities() {
   });
 }
 
-function createStatesWithCities(params) {
-  states().then((states) => {
-    let { ID: idState, Sigla: initialsState, Nome: stateName } = states[0];
+async function createStatesWithCities() {
+  let statesArray = await states();
 
-    let nameFile = `${initialsState}.json`;
-    let pathWrite = `./src/json/${nameFile}`;
+  let { ID: idState, Sigla: initialsState, Nome: stateName } = statesArray[0];
 
-    cities().then((cities) => {
-      let data = { [`${stateName}`]: [] };
+  let nameFile = `${initialsState}.json`;
+  let pathWrite = `./src/json/${nameFile}`;
 
-      cities.forEach((city) => {
-        let { ID: idCity, Nome: cityName, Estado: idCityState } = city;
-        if (idCityState === idState) {
-          data[`${stateName}`].push(cityName);
-        }
-      });
-      fs.writeFile(pathWrite, JSON.stringify(data));
-      //console.log(cities);
-    });
+  let citiesArray = await cities();
+
+  let data = { [`${stateName}`]: [] };
+
+  citiesArray.forEach((city) => {
+    let { ID: idCity, Nome: cityName, Estado: idCityState } = city;
+    if (idCityState === idState) {
+      data[`${stateName}`].push(cityName);
+    }
   });
+  console.log(data);
+  fs.writeFile(pathWrite, JSON.stringify(data));
 }
 
 createStatesWithCities();

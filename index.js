@@ -119,13 +119,13 @@ async function citiesInAscendingOrderBySize(initials) {
   });
   citiesSortedWithState = {};
   citiesSortedWithState[`${state}`] = citiesSorted;
-  // console.log(citiesSortedWithState);
+  //console.log(citiesSortedWithState);
   return citiesSortedWithState; // { state: [ 'city', 'city', ... ] }
 }
 
 //citiesInAscendingOrderBySize('AC');
 
-async function smallestCityAndState() {
+async function smallestCityAndState(printOut = 'yes') {
   let dirContent = await fs.readdir('src/json/estados');
   let smallestCityWithState = [];
 
@@ -137,7 +137,12 @@ async function smallestCityAndState() {
     // prettier-ignore
     smallestCityWithState = [...smallestCityWithState, `${smallestCity}-${initials}`];
   }
-  console.log(smallestCityWithState);
+  if (printOut === 'no') {
+    return smallestCityWithState;
+  } else if (printOut === 'yes' || '') {
+    console.log(smallestCityWithState);
+    return smallestCityWithState;
+  }
 }
 
 //smallestCityAndState();
@@ -173,4 +178,18 @@ async function biggestCityAndState() {
   console.log(biggestCityWithState);
 }
 
-biggestCityAndState();
+//biggestCityAndState();
+
+async function smallestCityOfAll() {
+  let smallestCities = await smallestCityAndState('no');
+  let citiesAndStates = smallestCities;
+
+  citiesAndStates.sort().sort((a, b) => {
+    return a.length - b.length;
+  });
+
+  let cityWithSmallestNameOfAll = citiesAndStates[0];
+  console.log(cityWithSmallestNameOfAll);
+}
+
+// smallestCityOfAll();

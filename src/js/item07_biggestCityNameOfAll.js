@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 const { biggestCityNameAndState } = require('./item05_biggestCityNameAndState');
 
 async function biggestCityNameOfAll() {
-  let biggestCities = await biggestCityNameAndState();
+  let biggestCities = await biggestCityNameAndState('no');
   let citiesAndStates = biggestCities;
 
   citiesAndStates.sort((a, b) => {

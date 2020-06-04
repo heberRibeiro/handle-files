@@ -1,27 +1,18 @@
+const ITEM01_PATH = './src/js/item01_createJsonForEachState';
+const ITEM02_PATH = './src/js/item02_totalCitiesByAcronym';
+const ITEM03_PATH = './src/js/item03_statesWithMoreCities';
+const ITEM04_PATH = './src/js/item04_statesWithLessCities';
+
 const fs = require('fs').promises;
 
-// prettier-ignore
-const { createJsonStatesWithCities } = require('./src/js/item01_createJsonForEachState');
-const totalcities = require('./src/js/item02_totalCitiesByAcronym');
-const statesWithMoreCities = require('./src/js/item03_statesWithMoreCities');
+const { createJsonStatesWithCities } = require(ITEM01_PATH);
+const totalcities = require(ITEM02_PATH);
+const { statesWithMoreCities, statesWithCities } = require(ITEM03_PATH);
+const statesWithLessCities = require(ITEM04_PATH);
 
 //createJsonStatesWithCities();
 //totalcities('PE').then((data) => console.log(data));
-//statesWithMoreCities();
-
-async function statesWithLessCities(numberStates = 5) {
-  let statesCities = await statesWithCities();
-  let statesLessCities = [];
-  statesCities.sort((a, b) => {
-    return parseInt(a.substr(5)) - parseInt(b.substr(5));
-  });
-  statesLessCities = statesCities.filter((value, ind, arr) => {
-    return ind < numberStates;
-  });
-
-  console.log(statesLessCities);
-}
-
+//statesWithMoreCities(5);
 //statesWithLessCities(6);
 
 async function readCities(initials) {

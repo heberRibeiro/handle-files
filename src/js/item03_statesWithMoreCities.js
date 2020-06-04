@@ -29,4 +29,5 @@ async function statesWithMoreCities(numberStates = 5) {
   console.log(statesMoreCities);
 }
 
-module.exports = statesWithMoreCities;
+module.exports.statesWithMoreCities = statesWithMoreCities;
+module.exports.statesWithCities = statesWithCities;

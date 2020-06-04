@@ -43,7 +43,7 @@ async function biggestCityNameAndState() {
   biggestCityWithState.sort((a, b) => {
     return b.length - a.length;
   });
-  console.log(biggestCityWithState);
+  return biggestCityWithState;
 }
 
 module.exports.biggestCityNameAndState = biggestCityNameAndState;

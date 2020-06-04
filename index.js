@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 
 // prettier-ignore
-const { createJsonStatesWithCities } = require('./src/js/createJsonForEachState');
+const { createJsonStatesWithCities } = require('./src/js/item01_createJsonForEachState');
 
 createJsonStatesWithCities();
 

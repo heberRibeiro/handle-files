@@ -14,22 +14,26 @@ function cities() {
   });
 }
 
-states().then((states) => {
-  let { ID: idState, Sigla: initialsState, Nome: stateName } = states[0];
+function createStatesWithCities(params) {
+  states().then((states) => {
+    let { ID: idState, Sigla: initialsState, Nome: stateName } = states[0];
 
-  let nameFile = `${initialsState}.json`;
-  let pathWrite = `./src/json/${nameFile}`;
+    let nameFile = `${initialsState}.json`;
+    let pathWrite = `./src/json/${nameFile}`;
 
-  cities().then((cities) => {
-    let data = { [`${stateName}`]: [] };
+    cities().then((cities) => {
+      let data = { [`${stateName}`]: [] };
 
-    cities.forEach((city) => {
-      let { ID: idCity, Nome: cityName, Estado: idCityState } = city;
-      if (idCityState === idState) {
-        data[`${stateName}`].push(cityName);
-      }
+      cities.forEach((city) => {
+        let { ID: idCity, Nome: cityName, Estado: idCityState } = city;
+        if (idCityState === idState) {
+          data[`${stateName}`].push(cityName);
+        }
+      });
+      fs.writeFile(pathWrite, JSON.stringify(data));
+      //console.log(cities);
     });
-    fs.writeFile(pathWrite, JSON.stringify(data));
-    //console.log(cities);
   });
-});
+}
+
+createStatesWithCities();

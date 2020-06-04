@@ -80,4 +80,64 @@ async function statesWithMoreCities(numberStates = 5) {
   console.log(statesMoreCities);
 }
 
-statesWithMoreCities();
+//statesWithMoreCities();
+
+async function statesWithLessCities(numberStates = 5) {
+  let statesCities = await statesWithCities();
+  let statesLessCities = [];
+  statesCities.sort((a, b) => {
+    return parseInt(a.substr(5)) - parseInt(b.substr(5));
+  });
+  statesLessCities = statesCities.filter((value, ind, arr) => {
+    return ind < numberStates;
+  });
+
+  console.log(statesLessCities);
+}
+
+//statesWithLessCities(6);
+
+async function readCities(initials) {
+  let path = `src/json/estados/${initials}.json`;
+  let read = await fs.readFile(path);
+
+  let cities = JSON.parse(read);
+
+  //console.log(cities);
+  return cities; // {state: ['city', 'city', ...] }
+}
+
+//readCities('AC');
+
+async function citiesSortedInAscendingOrderBySize(initials) {
+  let cities = await readCities(initials); // {state: ['city(3)', 'city(1)', ...] }
+  let state = Object.keys(cities)[0];
+  cities = cities[state]; // ['city(3)', 'city(1)', ...]
+
+  let citiesSorted = cities.sort((a, b) => {
+    return a.length - b.length;
+  });
+  citiesSortedWithState = {};
+  citiesSortedWithState[`${state}`] = citiesSorted;
+  // console.log(citiesSortedWithState);
+  return citiesSortedWithState; // { state: [ 'city(1)', 'city(2)', ... ] }
+}
+
+//citiesSortedInAscendingOrderBySize('AC');
+
+async function smallestCityAndState() {
+  let dirContent = await fs.readdir('src/json/estados');
+  let smallestCityWithState = [];
+
+  for (const nameFileWithExtension of dirContent) {
+    let initials = nameFileWithExtension.substr(0, 2);
+    let citiesSorted = await citiesSortedInAscendingOrderBySize(initials);
+    let state = Object.keys(citiesSorted)[0]; // state
+    let smallestCity = citiesSorted[`${state}`][0]; // city
+    // prettier-ignore
+    smallestCityWithState = [...smallestCityWithState, `${smallestCity}-${initials}`];
+    console.log(smallestCityWithState);
+  }
+}
+
+smallestCityAndState();

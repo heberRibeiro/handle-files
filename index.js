@@ -2,22 +2,11 @@ const fs = require('fs').promises;
 
 // prettier-ignore
 const { createJsonStatesWithCities } = require('./src/js/item01_createJsonForEachState');
+const totalcities = require('./src/js/item02_totalCitiesByAcronym');
 
 createJsonStatesWithCities();
 
-async function totalcities(initials) {
-  const pathFile = `src/json/estados/${initials}.json`;
-
-  let data = await fs.readFile(pathFile);
-
-  let key = Object.keys(JSON.parse(data));
-  let cities = Array.from(JSON.parse(data)[key]);
-  console.log(`A quantidade de cidade do estado de ${key} é ${cities.length}`);
-
-  return cities.length;
-}
-
-//totalcities('PE');
+totalcities('P');
 
 async function statesWithCities() {
   let dirContent = await fs.readdir('src/json/estados');

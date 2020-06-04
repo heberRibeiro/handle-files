@@ -5,6 +5,7 @@ const ITEM04_PATH = './src/js/item04_statesWithLessCities';
 const ITEM05_PATH = './src/js/item05_biggestCityNameAndState.js';
 const ITEM06_PATH = './src/js/item06_smallestCityNameAndState.js';
 const ITEM07_PATH = './src/js/item07_biggestCityNameOfAll.js';
+const ITEM08_PATH = './src/js/item08_smallestCityNameOfAll.js';
 
 const fs = require('fs').promises;
 
@@ -15,6 +16,7 @@ const statesWithLessCities = require(ITEM04_PATH);
 const { biggestCityNameAndState } = require(ITEM05_PATH);
 const { smallestCityNameAndState } = require(ITEM06_PATH);
 const { biggestCityNameOfAll } = require(ITEM07_PATH);
+const { smallestCityNameOfAll } = require(ITEM08_PATH);
 
 //createJsonStatesWithCities();
 //totalcities('PE').then((data) => console.log(data));
@@ -23,17 +25,4 @@ const { biggestCityNameOfAll } = require(ITEM07_PATH);
 //biggestCityNameAndState().then((data) => console.log(data));
 //smallestCityNameAndState();
 //biggestCityNameOfAll();
-
-async function smallestCityNameOfAll() {
-  let smallestCities = await smallestCityNameAndState('no');
-  let citiesAndStates = smallestCities;
-
-  citiesAndStates.sort().sort((a, b) => {
-    return a.length - b.length;
-  });
-
-  let cityWithSmallestNameOfAll = citiesAndStates[0];
-  console.log(cityWithSmallestNameOfAll);
-}
-
 // smallestCityNameOfAll();

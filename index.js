@@ -109,10 +109,10 @@ async function readCities(initials) {
 
 //readCities('AC');
 
-async function citiesSortedInAscendingOrderBySize(initials) {
-  let cities = await readCities(initials); // {state: ['city(3)', 'city(1)', ...] }
+async function citiesInAscendingOrderBySize(initials) {
+  let cities = await readCities(initials); // {state: ['city', 'city', ...] }
   let state = Object.keys(cities)[0];
-  cities = cities[state]; // ['city(3)', 'city(1)', ...]
+  cities = cities[state]; // ['city', 'city', ...]
 
   let citiesSorted = cities.sort((a, b) => {
     return a.length - b.length;
@@ -120,10 +120,10 @@ async function citiesSortedInAscendingOrderBySize(initials) {
   citiesSortedWithState = {};
   citiesSortedWithState[`${state}`] = citiesSorted;
   // console.log(citiesSortedWithState);
-  return citiesSortedWithState; // { state: [ 'city(1)', 'city(2)', ... ] }
+  return citiesSortedWithState; // { state: [ 'city', 'city', ... ] }
 }
 
-//citiesSortedInAscendingOrderBySize('AC');
+//citiesInAscendingOrderBySize('AC');
 
 async function smallestCityAndState() {
   let dirContent = await fs.readdir('src/json/estados');
@@ -131,13 +131,46 @@ async function smallestCityAndState() {
 
   for (const nameFileWithExtension of dirContent) {
     let initials = nameFileWithExtension.substr(0, 2);
-    let citiesSorted = await citiesSortedInAscendingOrderBySize(initials);
+    let citiesSorted = await citiesInAscendingOrderBySize(initials);
     let state = Object.keys(citiesSorted)[0]; // state
     let smallestCity = citiesSorted[`${state}`][0]; // city
     // prettier-ignore
     smallestCityWithState = [...smallestCityWithState, `${smallestCity}-${initials}`];
-    console.log(smallestCityWithState);
   }
+  console.log(smallestCityWithState);
 }
 
-smallestCityAndState();
+//smallestCityAndState();
+
+async function citiesInDescendingOrderBySize(initials) {
+  let cities = await readCities(initials); // {state: ['city', 'city', ...] }
+  let state = Object.keys(cities)[0];
+  cities = cities[state]; // ['city', 'city', ...]
+
+  let citiesSorted = cities.sort((a, b) => {
+    return b.length - a.length;
+  });
+  citiesSortedWithState = {};
+  citiesSortedWithState[`${state}`] = citiesSorted;
+  //console.log(citiesSortedWithState);
+  return citiesSortedWithState; // { state: [ 'city', 'city', ... ] }
+}
+
+//citiesInDescendingOrderBySize('AC');
+
+async function biggestCityAndState() {
+  let dirContent = await fs.readdir('src/json/estados');
+  let biggestCityWithState = [];
+
+  for (const nameFileWithExtension of dirContent) {
+    let initials = nameFileWithExtension.substr(0, 2);
+    let citiesSorted = await citiesInDescendingOrderBySize(initials);
+    let state = Object.keys(citiesSorted)[0]; // state
+    let biggestCity = citiesSorted[`${state}`][0]; // city
+    // prettier-ignore
+    biggestCityWithState = [...biggestCityWithState, `${biggestCity}-${initials}`];
+  }
+  console.log(biggestCityWithState);
+}
+
+biggestCityAndState();

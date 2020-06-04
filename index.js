@@ -45,9 +45,39 @@ async function totalcities(initials) {
 
   let key = Object.keys(JSON.parse(data));
   let cities = Array.from(JSON.parse(data)[key]);
-  console.log(`A quantidade de cidade do estado de ${key} é ${cities.length}`);
+  //console.log(`A quantidade de cidade do estado de ${key} é ${cities.length}`);
 
   return cities.length;
 }
 
 //totalcities('PE');
+
+async function statesWithCities() {
+  let dirContent = await fs.readdir('src/json/estados');
+  let statesAndNumberOfCities = [];
+
+  for (const nameFileWithExtension of dirContent) {
+    let initials = nameFileWithExtension.substr(0, 2);
+
+    let numberOfCities = await totalcities(initials);
+    let data = `${initials} - ${numberOfCities}`;
+
+    statesAndNumberOfCities = [...statesAndNumberOfCities, data];
+  }
+  return statesAndNumberOfCities;
+}
+
+async function statesWithMoreCities(numberStates = 5) {
+  let statesCities = await statesWithCities();
+  let statesMoreCities = [];
+  statesCities.sort((a, b) => {
+    return parseInt(b.substr(5)) - parseInt(a.substr(5));
+  });
+  statesMoreCities = statesCities.filter((value, ind, arr) => {
+    return ind < numberStates;
+  });
+
+  console.log(statesMoreCities);
+}
+
+statesWithMoreCities();

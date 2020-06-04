@@ -8,13 +8,10 @@ async function totalcities(initials) {
 
     let key = Object.keys(JSON.parse(data));
     let cities = Array.from(JSON.parse(data)[key]);
-    console.log(
-      `A quantidade de cidade do estado de ${key} é ${cities.length}`
-    );
 
     return cities.length;
   } catch (err) {
-    console.error('Estado não encontrado!');
+    return 'Estado não encontrado!';
   }
 }
 

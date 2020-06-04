@@ -11,7 +11,12 @@ async function biggestCityNameOfAll() {
   });
 
   let cityWithBiggestNameOfAll = citiesAndStates[0];
-  console.log(cityWithBiggestNameOfAll);
+
+  console.log('================================================');
+  console.log('07. Cidade de maior nome entre todos os estados');
+  console.log('================================================');
+
+  console.log(cityWithBiggestNameOfAll + '\n');
 }
 
 module.exports.biggestCityNameOfAll = biggestCityNameOfAll;

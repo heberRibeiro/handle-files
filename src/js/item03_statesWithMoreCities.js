@@ -26,7 +26,13 @@ async function statesWithMoreCities(numberStates = 5) {
     return ind < numberStates;
   });
 
+  console.log('==============================================================');
+  console.log(
+    '03 - Array com o UF dos cinco estados que mais \npossuem cidades, seguidos da quantidade, em ordem decrescente.'
+  );
+  console.log('==============================================================');
   console.log(statesMoreCities);
+  console.log('');
 }
 
 module.exports.statesWithMoreCities = statesWithMoreCities;

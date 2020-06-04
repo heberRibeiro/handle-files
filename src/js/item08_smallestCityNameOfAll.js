@@ -12,7 +12,12 @@ async function smallestCityNameOfAll() {
   });
 
   let cityWithSmallestNameOfAll = citiesAndStates[0];
-  console.log(cityWithSmallestNameOfAll);
+
+  console.log('================================================');
+  console.log('08. Cidade de menor nome entre todos os estados');
+  console.log('================================================');
+
+  console.log(cityWithSmallestNameOfAll + '\n');
 }
 
 module.exports.smallestCityNameOfAll = smallestCityNameOfAll;

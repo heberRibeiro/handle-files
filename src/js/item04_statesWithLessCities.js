@@ -11,7 +11,14 @@ async function statesWithLessCities(numberStates = 5) {
     return ind < numberStates;
   });
 
+  console.log('==============================================================');
+  console.log(
+    '04 - Aarray com o UF dos cinco estados que menos \npossuem cidades, seguidos da quantidade, em ordem decrescente.'
+  );
+  console.log('==============================================================');
+
   console.log(statesLessCities);
+  console.log('');
 }
 
 module.exports = statesWithLessCities;

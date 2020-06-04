@@ -28,7 +28,7 @@ async function citiesInDescendingOrderBySize(initials) {
 
 ////citiesInDescendingOrderBySize('AC');
 
-async function biggestCityNameAndState() {
+async function biggestCityNameAndState(printOut = 'yes') {
   let dirContent = await fs.readdir('src/json/estados');
   let biggestCityWithState = [];
 
@@ -43,7 +43,17 @@ async function biggestCityNameAndState() {
   biggestCityWithState.sort((a, b) => {
     return b.length - a.length;
   });
-  return biggestCityWithState;
+  if (printOut === 'no') {
+    return biggestCityWithState;
+  } else if (printOut === 'yes' || '') {
+    console.log('================================================');
+    console.log('05. Array com a cidade de maior nome de cada estado');
+    console.log('================================================');
+    console.log(biggestCityWithState);
+    console.log('');
+
+    return biggestCityWithState;
+  }
 }
 
 module.exports.biggestCityNameAndState = biggestCityNameAndState;

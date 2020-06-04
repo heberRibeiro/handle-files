@@ -38,7 +38,12 @@ async function smallestCityNameAndState(printOut = 'yes') {
   if (printOut === 'no') {
     return smallestCityWithState;
   } else if (printOut === 'yes' || '') {
+    console.log('================================================');
+    console.log('06. Array com a cidade de menor nome de cada estado');
+    console.log('================================================');
     console.log(smallestCityWithState);
+    console.log('');
+
     return smallestCityWithState;
   }
 }
